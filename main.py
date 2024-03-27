@@ -61,7 +61,7 @@ async def ga(gmail):
             }
 
     re = requests.post(url,headers=headers,data=data,proxies=proxs).text
-    if ('"user":true') in re:
+    if ('"user":true') or "checkpoint_required" in re:
     	e=({"status": "ok"})
     	return JSONResponse(content=e)
     else:
