@@ -1,0 +1,6 @@
+requests==2.31.0
+user-agent==0.1.10
+uvicorn==0.29.0
+gunicorn==21.2.0
+fastapi==0.110.0
+Flask==3.0.2
