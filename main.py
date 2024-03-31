@@ -1,4 +1,4 @@
- import flask
+import flask
 import os,sys
 #os.system("pip install fastapi")
 #os.system("pip install uvicorn")
