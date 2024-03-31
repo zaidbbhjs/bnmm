@@ -59,7 +59,7 @@ async def ga(gmail):
 
 
     ReqLog = requests.post('https://www.instagram.com/api/v1/web/accounts/login/ajax/',headers=headers,data=data,proxies=proxs,allow_redirects=True)
-    if ('"user":true') in ReqLog.text:
+    if ('"user":true') or "checkpoint_required" in ReqLog.text:
     	e=({"status": "ok"})
     	return JSONResponse(content=e)
     else:
