@@ -8,7 +8,9 @@ import random
 import uvicorn,time
 from fastapi import Request
 import json
+from uuid import uuid4
 from user_agent import generate_user_agent
+from hashlib import md5
 ugnt = generate_user_agent()
 from fastapi.responses import JSONResponse
 from fastapi import FastAPI
@@ -54,8 +56,11 @@ def chk(email):
 	from OneClick import Hunter
 	Hunter = Hunter
 	hd = str(Hunter.Services())
-	csr=get('https://i.instagram.com/api/v1/accounts/send_recovery_flow_email/').cookies.get_dict()['csrftoken']
-	mid=get('https://i.instagram.com/api/v1/accounts/send_recovery_flow_email/').cookies.get_dict()['mid']
+	from time import time
+	csr = md5(str(time()).encode()).hexdigest()
+	ud=str(uuid4())
+	mid='ZgfaagALAAFGw00tqG1zElqu7sPx'
+	#csr=""
 	url='https://i.instagram.com/api/v1/accounts/send_recovery_flow_email/'
 	h={
  'X-Pigeon-Session-Id':'2b712457-ffad-4dba-9241-29ea2f472ac5',
@@ -80,7 +85,7 @@ def chk(email):
  'Content-Length':'364',
  }
 	da={
- 'signed_body':'ef02f559b04e8d7cbe15fb8cf18e2b48fb686dafd056b7c9298c08f3e2007d43.{"_csrftoken":"'f'{csr}''","adid":"5e7df201-a1ff-45ec-8107-31b10944e25c","guid":"b0382b46-1663-43a7-ba90-3949c43fd808","device_id":"android-71a5d65f74b8fcbc","query":"'f'{email}''"}',
+ 'signed_body':'ef02f559b04e8d7cbe15fb8cf18e2b48fb686dafd056b7c9298c08f3e2007d43.{"_csrftoken":"'f'{csr}''","adid":"5e7df201-a1ff-45ec-8107-31b10944e25c","guid":"b0382b46-1663-43a7-ba90-3949c43fd808","device_id":"'f'{ud}''","query":"'f'{email}''"}',
  
  'ig_sig_key_version':'4',
  }
@@ -118,4 +123,4 @@ async def ga(gmail):
     elif "Bad Email" in df:
     	return "Bad"
     else:return "Error"
-#7 uvicorn.run(app,host='0.0.0.0',port=8080)
+uvicorn.run(app,host='0.0.0.0',port=8080)
