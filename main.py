@@ -328,7 +328,7 @@ error = 0
 retry = 0
 
 
-fi = "prokx.txt"
+fi = "good1.txt"
 to = "7154241780:AAFAEeRhV4Xog2ndj-zlieFwnGIByDUNXWI"
 id = "6874498736"
 
