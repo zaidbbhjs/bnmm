@@ -7,4 +7,5 @@ gunicorn==21.2.0
 fastapi==0.110.0
 Flask==3.0.2
 OneClick==3.0.1
+telebot==0.0.5
 stdiomask==0.0.6
