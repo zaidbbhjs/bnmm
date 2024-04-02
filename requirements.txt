@@ -1,3 +1,5 @@
+colorama==0.4.6
+getuseragent==0.0.7
 beautifulsoup4==4.12.3
 bs4==0.0.2
 requests==2.31.0
