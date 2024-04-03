@@ -69,26 +69,31 @@ async def ga(email):
     	ru = requests.post(url,headers=hel,data=data,proxies=r).json()
     	print(ru)
     	st=(ru["message"])
-    	print(st)
+    	sty=(ru["data"]["description"])
+    	st2=(ru["data"]["error_code"])
+    	#print(st)
     	if  'success' == st:
     		re={'status':'Good','email':f'{em}','dev':'@Marko_Bots'}
     		return re
-    except:
-    	try:
-    		sty=(ru["data"]["description"])
-    		if "Account doesn't exist" in sty:
+    	elif "Account doesn't exist" in sty:
     			re={'status':'Bad','email':f'{em}','dev':'@Marko_Bots'}
     			return re
-    		elif "Enter a valid email address" in sty:
+    	elif "Enter a valid email address" in sty:
     			re={'status':'Enter Vaild','email':f'{em}','dev':'@Marko_Bots'}
     			return re
-    		elif 'Maximum number of attempts reached. Try again later.' in sty:
+    	elif 'Maximum number of attempts reached. Try again later.' in sty:
     			re={'status':'Not Check Email Again','email':f'{em}','dev':'@Marko_Bots'}
     			return re
-    		else:
+    	elif 'error' or '1206' in st:
+    			re={'status':'Not Check Email Again','email':f'{em}','dev':'@Marko_Bots'}
+    			return re
+    	elif "{'data': {'captcha': '', 'desc_url': '', 'description': 'Maximum number of attempts reached. Try again later.', 'error_code': 1206}, 'message': 'error'}" in sty:
     			re={'status':'Ban','email':f'{em}','dev':'@Marko_Bots'}
     			return re
-    	except:
+    	else:
+    			re={'status':'Ban','email':f'{em}','dev':'@Marko_Bots'}
+    			return re
+    except:
     		re={'status':'Erorr','email':f'{em}','dev':'@Marko_Bots'}
     		return re
 @app.get('/tiktok/M2/{email}')
@@ -98,7 +103,7 @@ async def ga(email):
     email=email
     import requests
     em=email
-    url ='https://api19-normal-c-alisg.tiktokv.com/passport/email/send_code/?passport-sdk-version=30990&manifest_version_code=330701&_rticket=1711308090883&app_language=en&app_type=normal&iid=7349188181060159237&channel=googleplay&device_type=G011A&language=en&host_abi=x86_64&locale=en&resolution=900*1600&openudid=4191dff1d6e4e016&update_version_code=330701&ac2=wifi&cdid=1f3cae72-702f-4eea-a47e-fba7c49fe70d&sys_region=US&os_api=28&timezone_name=Asia%2FShanghai&dpi=300&carrier_region=IQ&ac=wifi&device_id=7322401149382018566&os_version=9&timezone_offset=28800&version_code=330701&app_name=musically_go&ab_version=33.7.1&version_name=33.7.1&device_brand=google&op_region=IQ&ssmix=a&device_platform=android&build_number=33.7.1&region=US&aid=1340&ts=1711307676&okhttp_version=4.1.103.38-ul&use_store_region_cookie=1'
+    url ='https://api19-normal-c-alisg.tiktokv.com/passport/email/send_code/'
     hel ={
         'Host': 'api19-normal-c-alisg.tiktokv.com',
         'X-Ss-Stub': 'B678D13A61CFF656C7C5C4AC410ED08C',
@@ -130,6 +135,7 @@ async def ga(email):
     try:
     	r=get_proxs()
     	ru = requests.post(url,headers=hel,data=data).json()
+    	print(ru)
     	st=(ru["message"])
     	if  'success' == st:
     		re={'status':'Good','email':f'{em}','dev':'@Marko_Bots'}
@@ -146,10 +152,13 @@ async def ga(email):
     		elif 'Maximum number of attempts reached. Try again later.' in sty:
     			re={'status':'Not Check Email Again','email':f'{em}','dev':'@Marko_Bots'}
     			return re
+    		elif "{'data': {'captcha': '', 'desc_url': '', 'description': 'Maximum number of attempts reached. Try again later.', 'error_code': 1206}, 'message': 'error'}" in sty:
+    			re={'status':'Ban','email':f'{em}','dev':'@Marko_Bots'}
+    			return re
     		else:
     			re={'status':'Ban','email':f'{em}','dev':'@Marko_Bots'}
     			return re
     	except:
     		re={'status':'Erorr','email':f'{em}','dev':'@Marko_Bots'}
     		return re
-#uvicorn.run(app,host='0.0.0.0',port=8080)
+uvicorn.run(app,host='0.0.0.0',port=8080)
