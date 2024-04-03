@@ -69,30 +69,13 @@ async def ga(email):
     	ru = requests.post(url,headers=hel,data=data,proxies=r).json()
     	print(ru)
     	st=(ru["message"])
-    	sty=(ru["data"]["description"])
-    	st2=(ru["data"]["error_code"])
     	#print(st)
     	if  'success' == st:
     		re={'status':'Good','email':f'{em}','dev':'@Marko_Bots'}
     		return re
-    	elif "Account doesn't exist" in sty:
-    			re={'status':'Bad','email':f'{em}','dev':'@Marko_Bots'}
-    			return re
-    	elif "Enter a valid email address" in sty:
-    			re={'status':'Enter Vaild','email':f'{em}','dev':'@Marko_Bots'}
-    			return re
-    	elif 'Maximum number of attempts reached. Try again later.' in sty:
-    			re={'status':'Not Check Email Again','email':f'{em}','dev':'@Marko_Bots'}
-    			return re
-    	elif 'error' or '1206' in st:
-    			re={'status':'Not Check Email Again','email':f'{em}','dev':'@Marko_Bots'}
-    			return re
-    	elif "{'data': {'captcha': '', 'desc_url': '', 'description': 'Maximum number of attempts reached. Try again later.', 'error_code': 1206}, 'message': 'error'}" in sty:
-    			re={'status':'Ban','email':f'{em}','dev':'@Marko_Bots'}
-    			return re
     	else:
-    			re={'status':'Ban','email':f'{em}','dev':'@Marko_Bots'}
-    			return re
+    		re={'status':'Bad','email':f'{em}','dev':'@Marko_Bots'}
+    		return re
     except:
     		re={'status':'Erorr','email':f'{em}','dev':'@Marko_Bots'}
     		return re
@@ -137,30 +120,13 @@ async def ga(email):
     	ru = requests.post(url,headers=hel,data=data).json()
     	print(ru)
     	st=(ru["message"])
-    	sty=(ru["data"]["description"])
-    	st2=(ru["data"]["error_code"])
     	#print(st)
     	if  'success' == st:
     		re={'status':'Good','email':f'{em}','dev':'@Marko_Bots'}
     		return re
-    	elif "Account doesn't exist" in sty:
-    			re={'status':'Bad','email':f'{em}','dev':'@Marko_Bots'}
-    			return re
-    	elif "Enter a valid email address" in sty:
-    			re={'status':'Enter Vaild','email':f'{em}','dev':'@Marko_Bots'}
-    			return re
-    	elif 'Maximum number of attempts reached. Try again later.' in sty:
-    			re={'status':'Not Check Email Again','email':f'{em}','dev':'@Marko_Bots'}
-    			return re
-    	elif 'error' or '1206' in st:
-    			re={'status':'Not Check Email Again','email':f'{em}','dev':'@Marko_Bots'}
-    			return re
-    	elif "{'data': {'captcha': '', 'desc_url': '', 'description': 'Maximum number of attempts reached. Try again later.', 'error_code': 1206}, 'message': 'error'}" in sty:
-    			re={'status':'Ban','email':f'{em}','dev':'@Marko_Bots'}
-    			return re
     	else:
-    			re={'status':'Ban','email':f'{em}','dev':'@Marko_Bots'}
-    			return re
+    		re={'status':'Bad','email':f'{em}','dev':'@Marko_Bots'}
+    		return re
     except:
     		re={'status':'Erorr','email':f'{em}','dev':'@Marko_Bots'}
     		return re
