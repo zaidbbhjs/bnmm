@@ -26,8 +26,8 @@ yy='azertyuiopmlkjhgfdsqwxcvbn'
 async def ga(gmail: str, request: Request):
 
     global a,tl,cok,yy
-    f5i =  open('host.txt','r').read().splitlines()
-    fi =  open('token.txt','r').read().splitlines()
+    #f5i =  open('host.txt','r').read().splitlines()
+    #fi =  open('token.txt','r').read().splitlines()
     try:
         tl =  random.choice(fi)
         host =  random.choice(f5i)
@@ -251,4 +251,4 @@ async def ga(gmail: str, request: Request):
     	return         JSONResponse(content={"status":"Error"})
     else:
     	return         JSONResponse(content={"status":"Error"})
-uvicorn.run(app,host='0.0.0.0',port=8080)
+#uvicorn.run(app,host='0.0.0.0',port=8080)
