@@ -91,8 +91,9 @@ def L7N_check_acc_face(message,id):
     	   	L7Nbut2.add(OK1)
     	   	L7Nbut2.add(CP1)
     	   	L7Nbut2.add(L7Nurl)
+		time.sleep(2)
     	   	bot.edit_message_text(chat_id=message.chat.id,message_id=id,text="اهلا صديقي نورت هنا لقد تم بدء الصيد",parse_mode='markdown',reply_markup=L7Nbut2)
-    	   	time.sleep(3)
+    	   	#time.sleep(3)
     	   	#bot.edit_message_text(chat_id=message.chat.id,message_id=id,text="""
 #*Checking in Progress, Good Luck.. ! *
 #By : [𝐋7𝐍 «𓆩ᶠᴮᴵ𓆪» ™](t.me/Z_WUZ) 🐉
