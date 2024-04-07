@@ -31,9 +31,17 @@ get_proxs()
 @app.get('/api/insta/{email}')
 def check_ins(email):
 	rrt=get_proxs()
-	from user_agent import generate_user_agent as gg;import time,requests;from hashlib import md5;str_time = str(int(time.time()));PASSWD="plplokok100000";passh = '#PWD_INSTAGRAM_BROWSER:0:' + str_time + ':' + PASSWD;data = {'username': email, 'enc_password': passh};headers={'user-agent':gg(),'Referer':'https://www.instagram.com/','X-CSRFToken':md5(str(time.time()).encode()).hexdigest(),};r=requests.post('https://www.instagram.com/accounts/login/ajax/',headers=headers,data=data,proxies=rrt).json()
-	if r["status"]=="ok":return         JSONResponse(content={"status":"Good"})
-	else:return         JSONResponse(content=r)
+	from user_agent import generate_user_agent as gg
+	import time,requests
+	from hashlib import md5
+	str_time = str(int(time.time()))
+	PASSWD="plplokok100000";passh = '#PWD_INSTAGRAM_BROWSER:0:' + str_time + ':' + PASSWD
+	data = {'username': email, 'enc_password': passh};headers={'user-agent':gg(),'Referer':'https://www.instagram.com/','X-CSRFToken':md5(str(time.time()).encode()).hexdigest(),}
+	r=requests.post('https://www.instagram.com/accounts/login/ajax/',headers=headers,data=data,proxies=rrt).json()
+	if r["status"]=="ok":
+		return         JSONResponse(content={"status":"Good"})
+	else:
+		return         JSONResponse(content=r)
 @app.get('/api/gmail/{gmail}')
 async def ga(gmail: str, request: Request):
 
