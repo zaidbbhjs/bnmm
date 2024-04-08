@@ -35,13 +35,70 @@ def check_ins(email):
 	import time,requests
 	from hashlib import md5
 	str_time = str(int(time.time()))
-	PASSWD="plplokok100000";passh = '#PWD_INSTAGRAM_BROWSER:0:' + str_time + ':' + PASSWD
-	data = {'username': email, 'enc_password': passh};headers={'user-agent':gg(),'Referer':'https://www.instagram.com/','X-CSRFToken':md5(str(time.time()).encode()).hexdigest(),}
-	r=requests.post('https://www.instagram.com/accounts/login/ajax/',headers=headers,data=data).json()
-	if r["status"]=="ok":
+	import requests,random
+	from time import time
+	from user_agent import generate_user_agent
+	import secrets
+	import json
+	import time
+	import os
+	from faker import Faker
+	O = '\x1b[38;5;208m' #برتقالي
+	Z = '\033[1;31m' #احمر
+	um=0
+	ids=[]
+	mmidd=secrets.token_hex(27)
+	ig_did=secrets.token_hex(36)
+	datrr=secrets.token_hex(24)
+	faker = Faker()
+	from hashlib import md5
+	from time import time
+	csrf = md5(str(time()).encode()).hexdigest()
+	import uuid
+	ud=str(uuid.uuid4())
+	fak = faker.user_agent()
+	app=''.join(random.choice('936619743392459')for i in range(15))
+	ajax=''.join(random.choice('1008613588')for i in range(9))
+	cookies = {
+    'csrftoken': csrf,
+    'ps_l': '0',
+    'ps_n': '0',
+    'ig_did': f'{ig_did}',
+    'ig_nrcb': '1',
+    'dpr': '2.1988937854766846',
+    'mid': mmidd,
+    'datr': datrr,
+}
+	headers = {
+        'accept': '*/*',
+        'accept-language': 'en-US,en;q=0.9',
+        'content-type': 'application/x-www-form-urlencoded',
+        'dnt': '1',
+        'dpr': '0.8',
+        'origin': 'https://www.instagram.com',
+        'referer': 'https://www.instagram.com/',
+        'user-agent': fak,
+        'viewport-width': '1296',
+        'x-asbd-id': '129477',
+        'x-csrftoken': csrf,
+        'x-ig-app-id': app,
+        'x-ig-www-claim': '0',
+        'x-instagram-ajax': ajax,
+        'x-requested-with': 'XMLHttpRequest',
+        #'x-web-device-id': ud,
+    }
+	data = {
+        'enc_password': f'#PWD_INSTAGRAM_BROWSER:10:{str_time}:plplokok100000',
+        'optIntoOneTap': 'false',
+        'queryParams': '{}',
+        'trustedDeviceRecords': '{}',
+        'username': email,
+    }
+	response = requests.post('https://www.instagram.com/api/v1/web/accounts/login/ajax/', headers=headers, data=data,cookies=cookies,rrt)
+	if '"user":true' in str(response.text):
 		return         JSONResponse(content={"status":"Good"})
 	else:
-		return         JSONResponse(content=r)
+		return         JSONResponse(content=response.text)
 @app.get('/api/gmail/{gmail}')
 async def ga(gmail: str, request: Request):
 
