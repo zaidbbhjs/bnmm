@@ -28,105 +28,95 @@ def get_proxs():
 	return proxs
 get_proxs()
 app = FastAPI()
-@app.get('/tiktok/M1/{email}')
+@app.get('/insta/{email}')
 async def ga(email):
     global cok,uuid
-    proxs=get_proxs()
+    import time,requests,random
+    from user_agent import generate_user_agent
     import random
     email=email
     import requests
     em=email
-    csrf = secrets.token_hex(32)
-    mmidd=secrets.token_hex(27)
-    ig_did=secrets.token_hex(36)
-    datrr=secrets.token_hex(24)
-    app=''.join(random.choice('1217981644879628')for i in range(15))
-    ajax=''.join(random.choice('1008613588')for i in range(9))
-    url='https://www.instagram.com/api/v1/web/accounts/check_email/'
-    heedrs={
-                    'Accept':'*/*',
-                    'Accept-Encoding':'gzip, deflate, br',
-                    'Accept-Language':'en-US,en;q=0.9,ar;q=0.8',
-                    'Content-Length':'38',
-                    'Content-Type':'application/x-www-form-urlencoded',
-                    'Sec-Ch-Prefers-Color-Scheme':'dark',
-                    'Sec-Ch-Ua':'"Not-A.Brand";v="99", "Chromium";v="124"',
-                    'Sec-Ch-Ua-Full-Version-List':'"Not-A.Brand";v="99.0.0.0", "Chromium";v="124.0.6327.1"',
-                    'Sec-Ch-Ua-Mobile':'?1',
-                    'Sec-Ch-Ua-Model':'"22021211RG"',
-                    'Sec-Ch-Ua-Platform':'"Android"',
-                    'Sec-Ch-Ua-Platform-Version':'"13.0.0"',
-                    'Sec-Fetch-Dest':'empty',
-                    'Sec-Fetch-Mode':'cors',
-                    'Sec-Fetch-Site':'same-origin',
-                    'User-Agent':generate_user_agent(),
-                    'Viewport-Width':'393',
-                    'X-Asbd-Id':'129477',
-                    'X-Csrftoken':csrf,
-                    'X-Ig-App-Id':app,
-                    'X-Ig-Www-Claim':'hmac.AR11z00N_IbRNGrzU_J3F40kHM4ANWlo_Iwb9V-urNnx3qQw',
-                    'X-Instagram-Ajax':ajax,
-                    'X-Requested-With':'XMLHttpRequest',
-                    }
-    data={
-                    'email': email
-                    }
-    req=requests.post(url,headers=heedrs,data=data,proxies=proxs).text
-    if 'email_is_taken' in req:
-    		re={'status':'Good','email':f'{em}','dev':'@Marko_Bots'}
-    		return re
-    else:
-    		re={'status':'Bad','email':f'{em}','dev':'@Marko_Bots'}
-    		return re
-@app.get('/insta/M2/{email}')
-async def ga(email):
-    global cok,uuid
     import random
-    email=email
-    import requests
-    em=email
-    csrf = secrets.token_hex(32)
-    mmidd=secrets.token_hex(27)
-    ig_did=secrets.token_hex(36)
-    datrr=secrets.token_hex(24)
-    app=''.join(random.choice('1217981644879628')for i in range(15))
-    ajax=''.join(random.choice('1008613588')for i in range(9))
-    gtt=random.choice(['GT-I9190','KOT49H','GT-I9192','KOT49H','GT-I9300I','KTU84P','GT-I9300','IMM76D','GT-I9300','JSS15J','GT-I9301I','KOT4','GT-I9301I','KOT49H','GT-I9500','JDQ39','GT-I9500','LRX22C','GT-N5100','JZO54K','GT-N7100','KOT49H','GT-N8000','JZO54K','GT-N8000','KOT49H','GT-P3110','JZO54K','GT-P5100','IML74K','GT-P5100','JDQ','GT-P5100','JDQ39','GT-P5100','JZO54K','GT-P5110','JDQ39','GT-P5200','KOT49H','GT-P5210','KOT49H','GT-P5220','JDQ39','GT-S7390','JZO54K','SAMSUNG','SM-A500F','SAMSUNG','SM-G532F','SAMSUNG','SM-G920F','SAMSUNG','SM-G935F','SAMSUNG','SM-J320F','SAMSUNG','SM-J510FN','SAMSUNG','SM-N920S','SAMSUNG','SM-T280','SM-A500FU','MMB29M','SM-A500F','LRX22G','SM-A500F','MMB29M','SM-A500H','MMB29M','SM-G900F','KOT49H','SM-G920F','MMB29K','SM-G920F','NRD90M','SM-G930F','NRD90M','SM-G935F','MMB29K','SM-G935F','NRD90M','SM-G950F','NRD90M','SM-J320FN','LMY47V','SM-J320F','LMY4','SM-J320F','LMY47V','SM-J320H','LMY47V','SM-J320M','LMY47V','SM-J510FN','MMB29M','SM-J510FN','NMF2','SM-J510FN','NMF26X','SM-J510FN','NMF26X;','SM-J701F','NRD90M;','SM-T111','JDQ39','SM-T230','KOT49H','SM-T231','KOT49H','SM-T235','KOT4''SM-T310','KOT49H','SM-T311','KOT4','SM-T311','KOT49H','SM-T315','JDQ39','SM-T525','KOT49H','SM-T531','KOT49H','SM-T531','LRX22G','SM-T535','LRX22G','SM-T555','LRX22G','SM-T561','KTU84P','SM-T705','LRX22G','SM-T705','LRX22G','SM-T805','LRX22G','SM*T820','NRD90M','SPH-L720','KOT49H'])
-    gttt=random.choice(['GT-I9190','KOT49H','GT-I9192','KOT49H','GT-I9300I','KTU84P','GT-I9300','IMM76D','GT-I9300','JSS15J','GT-I9301I','KOT4','GT-I9301I','KOT49H','GT-I9500','JDQ39','GT-I9500','LRX22C','GT-N5100','JZO54K','GT-N7100','KOT49H','GT-N8000','JZO54K','GT-N8000','KOT49H','GT-P3110','JZO54K','GT-P5100','IML74K','GT-P5100','JDQ','GT-P5100','JDQ39','GT-P5100','JZO54K','GT-P5110','JDQ39','GT-P5200','KOT49H','GT-P5210','KOT49H','GT-P5220','JDQ39','GT-S7390','JZO54K','SAMSUNG','SM-A500F','SAMSUNG','SM-G532F','SAMSUNG','SM-G920F','SAMSUNG','SM-G935F','SAMSUNG','SM-J320F','SAMSUNG','SM-J510FN','SAMSUNG','SM-N920S','SAMSUNG','SM-T280','SM-A500FU','MMB29M','SM-A500F','LRX22G','SM-A500F','MMB29M','SM-A500H','MMB29M','SM-G900F','KOT49H','SM-G920F','MMB29K','SM-G920F','NRD90M','SM-G930F','NRD90M','SM-G935F','MMB29K','SM-G935F','NRD90M','SM-G950F','NRD90M','SM-J320FN','LMY47V','SM-J320F','LMY4','SM-J320F','LMY47V','SM-J320H','LMY47V','SM-J320M','LMY47V','SM-J510FN','MMB29M','SM-J510FN','NMF2','SM-J510FN','NMF26X','SM-J510FN','NMF26X;','SM-J701F','NRD90M;','SM-T111','JDQ39','SM-T230','KOT49H','SM-T231','KOT49H','SM-T235','KOT4''SM-T310','KOT49H','SM-T311','KOT4','SM-T311','KOT49H','SM-T315','JDQ39','SM-T525','KOT49H','SM-T531','KOT49H','SM-T531','LRX22G','SM-T535','LRX22G','SM-T555','LRX22G','SM-T561','KTU84P','SM-T705','LRX22G','SM-T705','LRX22G','SM-T805','LRX22G','SM*T820','NRD90M','SPH-L720','KOT49H'])
-    url='https://www.instagram.com/api/v1/web/accounts/check_email/'
-    heedrs={
-                    'Accept':'*/*',
-                    'Accept-Encoding':'gzip, deflate, br',
-                    'Accept-Language':'en-US,en;q=0.9,ar;q=0.8',
-                    'Content-Length':'38',
-                    'Content-Type':'application/x-www-form-urlencoded',
-                    'Sec-Ch-Prefers-Color-Scheme':'dark',
-                    'Sec-Ch-Ua':'"Not-A.Brand";v="99", "Chromium";v="124"',
-                    'Sec-Ch-Ua-Full-Version-List':'"Not-A.Brand";v="99.0.0.0", "Chromium";v="124.0.6327.1"',
-                    'Sec-Ch-Ua-Mobile':'?1',
-                    'Sec-Ch-Ua-Model':f'"{gttt}"',
-                    'Sec-Ch-Ua-Platform':'"Android"',
-                    'Sec-Ch-Ua-Platform-Version':'"13.0.0"',
-                    'Sec-Fetch-Dest':'empty',
-                    'Sec-Fetch-Mode':'cors',
-                    'Sec-Fetch-Site':'same-origin',
-                    'User-Agent':generate_user_agent(),
-                    'Viewport-Width':'393',
-                    'X-Asbd-Id':'129477',
-                    'X-Csrftoken':csrf,
-                    'X-Ig-App-Id':app,
-                    'X-Ig-Www-Claim':'hmac.AR11z00N_IbRNGrzU_J3F40kHM4ANWlo_Iwb9V-urNnx3qQw',
-                    'X-Instagram-Ajax':ajax,
-                    'X-Requested-With':'XMLHttpRequest',
-                    }
+    rAeg2 = requests.Session()
+    g = str(''.join(random.choice('qwertyuiopasdfghjklzxcvbnm') for i in range(8)))
+    password = f"#PWD_INSTAGRAM_BROWSER:0:{int(time.time())}:{g}"
+    s3 = rAeg2.get('https://www.instagram.com/accounts/login/')
+    rs3 = rAeg2.get('https://www.instagram.com/accounts/login/')
+    ctk = rs3.text.replace("\\", "").split('csrf_token\":\"')[1].split('"')[0]
+    headers = {
+            "user-agent": generate_user_agent(),
+            "x-csrftoken": ctk,
+            "x-ig-www-claim": "0",
+        }
+    rs3 = rAeg2.post(
+            "https://www.instagram.com/api/v1/web/accounts/login/ajax/",
+            headers=headers,
     data={
-                    'email': email
-                    }
-    req=requests.post(url,headers=heedrs,data=data).text
-    if 'email_is_taken' in req:
-    		re={'status':'Good','email':f'{em}','dev':'@Marko_Bots'}
-    		return re
-    else:
-    	re={'status':'bad','email':f'{em}','dev':'@Marko_Bots'}
+                "enc_password": password,
+                "username": email,
+                "queryParams": "{}",
+                "optIntoOneTap": "false",
+                "trustedDeviceRecords": "{}"
+            },
+        )
+
+    headers.update({"x-ig-set-www-claim": rs3.headers["x-ig-set-www-claim"]})
+    headers.update({"x-csrftoken": rs3.cookies.get("csrftoken")})
+    if '{"user":true,"authenticated":false,"status":"ok"}' in rs3.text:
+    	re={'status':'Good','email':f'{email}','dev':'@Marko_Bots'}
     	return re
+    else:
+    	return rs3.text
+#@app.get('/tiktok/M2/{email}')
+#async def ga(email):
+#    global cok,uuid
+#    import random
+#    email=email
+#    import requests
+#    em=email
+#    url ='https://api19-normal-c-alisg.tiktokv.com/passport/email/send_code/?passport-sdk-version=30990&manifest_version_code=330701&_rticket=1711308090883&app_language=en&app_type=normal&iid=7349188181060159237&channel=googleplay&device_type=G011A&language=en&host_abi=x86_64&locale=en&resolution=900*1600&openudid=4191dff1d6e4e016&update_version_code=330701&ac2=wifi&cdid=1f3cae72-702f-4eea-a47e-fba7c49fe70d&sys_region=US&os_api=28&timezone_name=Asia%2FShanghai&dpi=300&carrier_region=IQ&ac=wifi&device_id=7322401149382018566&os_version=9&timezone_offset=28800&version_code=330701&app_name=musically_go&ab_version=33.7.1&version_name=33.7.1&device_brand=google&op_region=IQ&ssmix=a&device_platform=android&build_number=33.7.1&region=US&aid=1340&ts=1711307676&okhttp_version=4.1.103.38-ul&use_store_region_cookie=1'
+#    hel ={
+#        'Host': 'api19-normal-c-alisg.tiktokv.com',
+#        'X-Ss-Stub': 'B678D13A61CFF656C7C5C4AC410ED08C',
+#        'X-Tt-Req-Timeout': '90000',
+#    
+#        'Passport-Sdk-Version': '30990',
+#        'X-Tt-Ultra-Lite': '1',
+#        'X-Vc-Bdturing-Sdk-Version': '2.3.2.i18n',
+#        'User-Agent': 'com.zhiliaoapp.musically.go/330701 (Linux; U; Android 9; en_US; G011A; Build/PI;tt-ok/3.12.13.2-alpha.68-quictest)',
+#        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+#        'Content-Length': '111',
+#        'Connection': 'Keep-Alive',
+#        'Cookie': 'store-idc=maliva; store-country-code=iq; store-country-code-src=did; install_id=7349188181060159237; ttreq=1$5b88a121224483f691167ed191ae7262463dcd97; odin_tt=1aae3f3d55b3661f89e63a25426a3f8129928fa6faf39bfdfacb5ee186c9b39bfc8f0d8742308a5d71b2d2c03fc71e30e6ed057f64066e96da204f848506ced2ce11249c5ccbcdced81b1228258e7b5c; msToken=q5s83ond0U83ofNGB2qkYjOZ37Mwd0-03K6xWYJ_9oMDy4NthHVHPINi6fd_RwjR2pZ3R1dthj52yYkTP_wxzvhQv5qIQytzcn6FgYTjbX6GxVa3T7-YtyQcqA==',
+#        'X-Ladon': 'WiQcSeHV096ORMvgUVUvpx8ETTRCwRytu5JTwCb2/I+0GlNv',
+#        'X-Khronos': '1711308102',
+#        'X-Argus': 'XB93C1jj7bSJ51Y4dFqSMrMSCO0tOOjY2gMwMxCgPlKm/vPw+l6DesLHILttAwzbMiwPYD0LIBdx2DcKqDHjPRlVZ44lu9g71nLNvL4GQyZP/gChx2so57/3MrCDTPDdaJV5GNPz0uZyuWB9XAaOUytMIZ1kaopD4m+bZbfgsNYLutwSAWBV8zDeJpud1wMaPrY4KCxGOIBQ/jjqD/cJH/abx/qD6AynRptkJ6ZsgICg+5jmSNHxD6TAD+FYwswT9Rvxp167i66LpinwjM+JpU0gNPUuQRZmV3pFiJNDWfZevg==',
+#        'X-Gorgon': '8404c0744081845e8965794337bcdef89d108331b4cbd482d65a'
+#    }
+
+#    data ={
+#        'rules_version':'v2',
+#        'account_sdk_source':'app',
+#        'type':'31',
+#        'email':f'{em}',
+#        'mix_mode':'1'
+#    }
+# 
+
+#    try:
+#    	r=get_proxs()
+#    	ru = requests.post(url,headers=hel,data=data).json()
+#    	print(ru)
+#    	st=(ru["message"])
+#    	#print(st)
+#    	if  'success' == st:
+#    		re={'status':'Good','email':f'{em}','dev':'@Marko_Bots'}
+#    		return re
+#    	else:
+#    		re={'status':'Bad','email':f'{em}','dev':'@Marko_Bots'}
+#    		return re
+#    except:
+#    		re={'status':'Erorr','email':f'{em}','dev':'@Marko_Bots'}
+#    		return re
 #uvicorn.run(app,host='0.0.0.0',port=8080)
