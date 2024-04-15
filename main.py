@@ -38,6 +38,7 @@ async def ga(email):
     import requests
     em=email
     import random
+    #p=get_proxs()
     rAeg2 = requests.Session()
     g = str(''.join(random.choice('qwertyuiopasdfghjklzxcvbnm') for i in range(8)))
     password = f"#PWD_INSTAGRAM_BROWSER:0:{int(time.time())}:{g}"
@@ -66,8 +67,15 @@ async def ga(email):
     if '{"user":true,"authenticated":false,"status":"ok"}' in rs3.text:
     	re={'status':'Good','email':f'{email}','dev':'@Marko_Bots'}
     	return re
+    elif '"{\"message\":\"Sorry, your password was incorrect. Please double-check your password.\",\"status\":\"fail\"}"' in rs3.text:
+    	re={'status':'Bad','email':f'{email}','dev':'@Marko_Bots'}
+    	return re
+    elif "html" in rs3.text:
+    	re={'status':'Good','email':f'{email}','dev':'@Marko_Bots'}
+    	return re
     else:
-    	return rs3.text
+    	re={'status':'Error','email':f'{email}','dev':'@Marko_Bots'}
+    	return re
 @app.get('/insta2/{email}')
 async def ga(email):
     global cok,uuid
@@ -111,7 +119,7 @@ async def ga(email):
     elif '"{\"message\":\"Sorry, your password was incorrect. Please double-check your password.\",\"status\":\"fail\"}"' in rs3.text:
     	re={'status':'Bad','email':f'{email}','dev':'@Marko_Bots'}
     	return re
-    elif "html" in rs3.text
+    elif "html" in rs3.text:
     	re={'status':'Good','email':f'{email}','dev':'@Marko_Bots'}
     	return re
     else:
