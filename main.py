@@ -61,7 +61,49 @@ async def ga(email):
             },
         )
 
-    headers.update({"x-ig-set-www-claim": rs3.headers["x-ig-set-www-claim"]})
+    headers.update({"x-ig-set-www-claim":"0"})
+    headers.update({"x-csrftoken": rs3.cookies.get("csrftoken")})
+    if '{"user":true,"authenticated":false,"status":"ok"}' in rs3.text:
+    	re={'status':'Good','email':f'{email}','dev':'@Marko_Bots'}
+    	return re
+    else:
+    	return rs3.text
+@app.get('/insta2/{email}')
+async def ga(email):
+    global cok,uuid
+    import time,requests,random
+    from user_agent import generate_user_agent
+    import random
+    email=email
+    import requests
+    em=email
+    import random
+    p=get_proxs()
+    rAeg2 = requests.Session()
+    g = str(''.join(random.choice('qwertyuiopasdfghjklzxcvbnm') for i in range(8)))
+    password = f"#PWD_INSTAGRAM_BROWSER:0:{int(time.time())}:{g}"
+    s3 = rAeg2.get('https://www.instagram.com/accounts/login/')
+    rs3 = rAeg2.get('https://www.instagram.com/accounts/login/')
+    ctk = rs3.text.replace("\\", "").split('csrf_token\":\"')[1].split('"')[0]
+    headers = {
+            "user-agent": generate_user_agent(),
+            "x-csrftoken": ctk,
+            "x-ig-www-claim": "0",
+        }
+    rs3 = rAeg2.post(
+            "https://www.instagram.com/api/v1/web/accounts/login/ajax/",
+            headers=headers,
+    data={
+                "enc_password": password,
+                "username": email,
+                "queryParams": "{}",
+                "optIntoOneTap": "false",
+                "trustedDeviceRecords": "{}"
+            },
+    proxies=p
+        )
+
+    headers.update({"x-ig-set-www-claim":"0"})
     headers.update({"x-csrftoken": rs3.cookies.get("csrftoken")})
     if '{"user":true,"authenticated":false,"status":"ok"}' in rs3.text:
     	re={'status':'Good','email':f'{email}','dev':'@Marko_Bots'}
