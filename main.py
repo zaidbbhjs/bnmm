@@ -108,8 +108,15 @@ async def ga(email):
     if '{"user":true,"authenticated":false,"status":"ok"}' in rs3.text:
     	re={'status':'Good','email':f'{email}','dev':'@Marko_Bots'}
     	return re
+    elif '"{\"message\":\"Sorry, your password was incorrect. Please double-check your password.\",\"status\":\"fail\"}"' in rs3.text:
+    	re={'status':'Bad','email':f'{email}','dev':'@Marko_Bots'}
+    	return re
+    elif "html" in rs3.text
+    	re={'status':'Good','email':f'{email}','dev':'@Marko_Bots'}
+    	return re
     else:
-    	return rs3.text
+    	re={'status':'Error','email':f'{email}','dev':'@Marko_Bots'}
+    	return re
 #@app.get('/tiktok/M2/{email}')
 #async def ga(email):
 #    global cok,uuid
