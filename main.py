@@ -28,152 +28,173 @@ def get_proxs():
 	return proxs
 get_proxs()
 app = FastAPI()
-@app.get('/insta/{email}')
+import requests,random
+def p():
+	r="ch1","ch2","ch3"
+	cha=random.choice(r)
+	if cha=="ch1":
+		prox=open('socks4.txt','r').read().splitlines()
+		pr=random.choice(prox)
+		return {'http':'socks4://'+pr}
+	elif cha=="ch2":
+		prox=open('socks5.txt','r').read().splitlines()
+		pr=random.choice(prox)
+		return {'http':'socks5://'+pr}
+	elif cha=="ch3":
+		prox=open('http.txt','r').read().splitlines()
+		pr=random.choice(prox)
+		return {'http':'http://'+pr,'http':'https://'+pr}
+p()
+@app.get('/tiktok/{email}')
+async def tiktok(email):
+		prox=open('devices.txt','r').read().splitlines()
+		from random import randint
+		dd=randint(500, 1200)
+		import secrets
+		ss="{}".format(str(secrets.token_hex(8) * 2))
+		did1=random.choice(prox)
+		iid=did1.split(":")[0]
+		dev=did1.split(":")[1]
+		proxy=p()
+		em=email
+		import uuid
+		u=uuid.uuid4
+		url = f"https://api16-normal-c-alisg.tiktokv.com/passport/email/send_code/?residence=AE&device_id={dev}&os_version=14.3&app_id=1233&iid={iid}&app_name=musical_ly&pass-route=1&vendor_id={u}&locale=ar&pass-region=1&ac=WIFI&sys_region=US&ssmix=a&version_code=17.2.0&vid={u}&channel=App%20Store&op_region=AE&os_api=18&idfa=00000000-0000-0000-0000-000000000000&install_id={iid}&idfv={u}&device_platform=iphone&device_type=iPhone9%2C4&openudid=3ce553bec09070081e5a698d3a14a988f3642ac4&account_region=&tz_name=Asia%2FDubai&tz_offset=14400&app_language=ar&carrier_region=AE&current_region=AE&aid=1233&mcc_mnc=42402&screen_width={dd}&uoo=1&content_language=&language=ar&cdid={u}&build_number=172025&app_version=17.2.0&resolution=1242%2A2208"
+		headers = {
+       'Host':'api16-normal-c-alisg.tiktokv.com', 
+	   'Connection':'close', 
+	   'Content-Length':'76', 
+	   'Cookie':f'sessionid={ss}', 
+       'x-Tt-Token':'2c593820065f9a47b9bf51281eda9604-1.0.0', 
+	   'Content-Type':'application/x-www-form-urlencoded', 
+	   'x-tt-passport-csrf-token':'b0b2ed352b9394eefc29754dfe80926c', 
+       'sdk-version':'2', 
+	   'passport-sdk-version':'5.12.1'}
+		data = {
+        'account_sdk_source':'app', 
+	    'email':str(email), 
+	    'mix_mode':'1', 
+	    'type':'31'}
+		
+		response = requests.post(url, data=data, headers=headers,proxies=proxy)
+		print(response.text)
+		
+		if ('"message":"success"') in response.text:
+		  		re={'status':'Good','email':f'{em}','dev':'@Marko_Bots'}
+		  		return re
+		else:
+		  		re={'status':'Bad','email':f'{em}','dev':'@Marko_Bots'}
+		  		return re
+@app.get('/tiktok/M1/{email}')
 async def ga(email):
     global cok,uuid
-    import time,requests,random
-    from user_agent import generate_user_agent
     import random
     email=email
     import requests
     em=email
     import random
-    #p=get_proxs()
-    rAeg2 = requests.Session()
-    g = str(''.join(random.choice('qwertyuiopasdfghjklzxcvbnm') for i in range(8)))
-    password = f"#PWD_INSTAGRAM_BROWSER:0:{int(time.time())}:{g}"
-    s3 = rAeg2.get('https://www.instagram.com/accounts/login/')
-    rs3 = rAeg2.get('https://www.instagram.com/accounts/login/')
-    ctk = rs3.text.replace("\\", "").split('csrf_token\":\"')[1].split('"')[0]
-    headers = {
-            "user-agent": generate_user_agent(),
-            "x-csrftoken": ctk,
-            "x-ig-www-claim": "0",
-        }
-    rs3 = rAeg2.post(
-            "https://www.instagram.com/api/v1/web/accounts/login/ajax/",
-            headers=headers,
-    data={
-                "enc_password": password,
-                "username": email,
-                "queryParams": "{}",
-                "optIntoOneTap": "false",
-                "trustedDeviceRecords": "{}"
-            },
-        )
+    prox=open('devices.txt','r').read().splitlines()
+    did1=random.choice(prox)
+    did=did1.split(":")[0]
+    import requests
+    header = {"User-Agent": 'Mozilla/5.0 (Linux; Android 10; Lenovo K12) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Mobile Safari/537.36'}
+    M=requests.get('https://www-useast1a.tiktok.com//passport/web/user/login/',headers=header).cookies.get_dict()
+    ms=['msToken']
+    url =f'https://api19-normal-c-alisg.tiktokv.com/passport/email/send_code/?passport-sdk-version=30990&manifest_version_code=330701&_rticket=1711308090883&app_language=en&app_type=normal&iid={did}&channel=googleplay&device_type=G011A&language=en&host_abi=x86_64&locale=en&resolution=900*1600&openudid=4191dff1d6e4e016&update_version_code=330701&ac2=wifi&cdid=1f3cae72-702f-4eea-a47e-fba7c49fe70d&sys_region=US&os_api=28&timezone_name=Asia%2FShanghai&dpi=300&carrier_region=IQ&ac=wifi&device_id={did}&os_version=9&timezone_offset=28800&version_code=330701&app_name=musically_go&ab_version=33.7.1&version_name=33.7.1&device_brand=google&op_region=IQ&ssmix=a&device_platform=android&build_number=33.7.1&region=US&aid=1340&ts=1711307676&okhttp_version=4.1.103.38-ul&use_store_region_cookie=1'
+    from signature import signature
+    sig = signature(params="", data="", cookies="").get_value()
+    hel ={
+        'Host': 'api19-normal-c-alisg.tiktokv.com',
+        'X-Ss-Stub': 'B678D13A61CFF656C7C5C4AC410ED08C',
+        'X-Tt-Req-Timeout': '90000',
+    
+        'Passport-Sdk-Version': '30990',
+        'X-Tt-Ultra-Lite': '1',
+        'X-Vc-Bdturing-Sdk-Version': '2.3.2.i18n',
+        'User-Agent': 'com.zhiliaoapp.musically.go/330701 (Linux; U; Android 9; en_US; G011A; Build/PI;tt-ok/3.12.13.2-alpha.68-quictest)',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Content-Length': '111',
+        'Connection': 'Keep-Alive',
+        'Cookie': f'store-idc=maliva; store-country-code=iq; store-country-code-src=did; install_id={did}; ttreq=1$5b88a121224483f691167ed191ae7262463dcd97; odin_tt=1aae3f3d55b3661f89e63a25426a3f8129928fa6faf39bfdfacb5ee186c9b39bfc8f0d8742308a5d71b2d2c03fc71e30e6ed057f64066e96da204f848506ced2ce11249c5ccbcdced81b1228258e7b5c; msToken={ms}',
+        'X-Ladon': 'WiQcSeHV096ORMvgUVUvpx8ETTRCwRytu5JTwCb2/I+0GlNv',
+        'X-Khronos': sig['X-Khronos'],
+        'X-Argus': 'XB93C1jj7bSJ51Y4dFqSMrMSCO0tOOjY2gMwMxCgPlKm/vPw+l6DesLHILttAwzbMiwPYD0LIBdx2DcKqDHjPRlVZ44lu9g71nLNvL4GQyZP/gChx2so57/3MrCDTPDdaJV5GNPz0uZyuWB9XAaOUytMIZ1kaopD4m+bZbfgsNYLutwSAWBV8zDeJpud1wMaPrY4KCxGOIBQ/jjqD/cJH/abx/qD6AynRptkJ6ZsgICg+5jmSNHxD6TAD+FYwswT9Rvxp167i66LpinwjM+JpU0gNPUuQRZmV3pFiJNDWfZevg==',
+        'X-Gorgon': sig['X-Gorgon'],
+    }
 
-    headers.update({"x-ig-set-www-claim":"0"})
-    headers.update({"x-csrftoken": rs3.cookies.get("csrftoken")})
-    if '{"user":true,"authenticated":false,"status":"ok"}' in rs3.text:
-    	re={'status':'Good','email':f'{email}','dev':'@Marko_Bots'}
-    	return re
-    elif '"{\"message\":\"Sorry, your password was incorrect. Please double-check your password.\",\"status\":\"fail\"}"' in rs3.text:
-    	re={'status':'Bad','email':f'{email}','dev':'@Marko_Bots'}
-    	return re
-    elif "html" in rs3.text:
-    	re={'status':'Good','email':f'{email}','dev':'@Marko_Bots'}
-    	return re
-    else:
-    	re={'status':'Error','email':f'{email}','dev':'@Marko_Bots'}
-    	return re
-@app.get('/insta2/{email}')
+    data ={
+        'rules_version':'v2',
+        'account_sdk_source':'app',
+        'type':'31',
+        'email':f'{em}',
+        'mix_mode':'1'
+    }
+ 
+
+    try:
+    	r=get_proxs()
+    	ru = requests.post(url,headers=hel,data=data,proxies=r).json()
+    	print(ru)
+    	st=(ru["message"])
+    	#print(st)
+    	if  'success' == st:
+    		re={'status':'Good','email':f'{em}','dev':'@Marko_Bots'}
+    		return re
+    	else:
+    		re={'status':'Bad','email':f'{em}','dev':'@Marko_Bots'}
+    		return re
+    except:
+    		re={'status':'Erorr','email':f'{em}','dev':'@Marko_Bots'}
+    		return re
+@app.get('/tiktok/M2/{email}')
 async def ga(email):
     global cok,uuid
-    import time,requests,random
-    from user_agent import generate_user_agent
     import random
     email=email
     import requests
     em=email
-    import random
-    p=get_proxs()
-    rAeg2 = requests.Session()
-    g = str(''.join(random.choice('qwertyuiopasdfghjklzxcvbnm') for i in range(8)))
-    password = f"#PWD_INSTAGRAM_BROWSER:0:{int(time.time())}:{g}"
-    s3 = rAeg2.get('https://www.instagram.com/accounts/login/')
-    rs3 = rAeg2.get('https://www.instagram.com/accounts/login/')
-    ctk = rs3.text.replace("\\", "").split('csrf_token\":\"')[1].split('"')[0]
-    headers = {
-            "user-agent": generate_user_agent(),
-            "x-csrftoken": ctk,
-            "x-ig-www-claim": "0",
-        }
-    rs3 = rAeg2.post(
-            "https://www.instagram.com/api/v1/web/accounts/login/ajax/",
-            headers=headers,
-    data={
-                "enc_password": password,
-                "username": email,
-                "queryParams": "{}",
-                "optIntoOneTap": "false",
-                "trustedDeviceRecords": "{}"
-            },
-    proxies=p
-        )
+    url ='https://api19-normal-c-alisg.tiktokv.com/passport/email/send_code/?passport-sdk-version=30990&manifest_version_code=330701&_rticket=1711308090883&app_language=en&app_type=normal&iid=7349188181060159237&channel=googleplay&device_type=G011A&language=en&host_abi=x86_64&locale=en&resolution=900*1600&openudid=4191dff1d6e4e016&update_version_code=330701&ac2=wifi&cdid=1f3cae72-702f-4eea-a47e-fba7c49fe70d&sys_region=US&os_api=28&timezone_name=Asia%2FShanghai&dpi=300&carrier_region=IQ&ac=wifi&device_id=7322401149382018566&os_version=9&timezone_offset=28800&version_code=330701&app_name=musically_go&ab_version=33.7.1&version_name=33.7.1&device_brand=google&op_region=IQ&ssmix=a&device_platform=android&build_number=33.7.1&region=US&aid=1340&ts=1711307676&okhttp_version=4.1.103.38-ul&use_store_region_cookie=1'
+    hel ={
+        'Host': 'api19-normal-c-alisg.tiktokv.com',
+        'X-Ss-Stub': 'B678D13A61CFF656C7C5C4AC410ED08C',
+        'X-Tt-Req-Timeout': '90000',
+    
+        'Passport-Sdk-Version': '30990',
+        'X-Tt-Ultra-Lite': '1',
+        'X-Vc-Bdturing-Sdk-Version': '2.3.2.i18n',
+        'User-Agent': 'com.zhiliaoapp.musically.go/330701 (Linux; U; Android 9; en_US; G011A; Build/PI;tt-ok/3.12.13.2-alpha.68-quictest)',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Content-Length': '111',
+        'Connection': 'Keep-Alive',
+        'Cookie': 'store-idc=maliva; store-country-code=iq; store-country-code-src=did; install_id=7349188181060159237; ttreq=1$5b88a121224483f691167ed191ae7262463dcd97; odin_tt=1aae3f3d55b3661f89e63a25426a3f8129928fa6faf39bfdfacb5ee186c9b39bfc8f0d8742308a5d71b2d2c03fc71e30e6ed057f64066e96da204f848506ced2ce11249c5ccbcdced81b1228258e7b5c; msToken=q5s83ond0U83ofNGB2qkYjOZ37Mwd0-03K6xWYJ_9oMDy4NthHVHPINi6fd_RwjR2pZ3R1dthj52yYkTP_wxzvhQv5qIQytzcn6FgYTjbX6GxVa3T7-YtyQcqA==',
+        'X-Ladon': 'WiQcSeHV096ORMvgUVUvpx8ETTRCwRytu5JTwCb2/I+0GlNv',
+        'X-Khronos': '1711308102',
+        'X-Argus': 'XB93C1jj7bSJ51Y4dFqSMrMSCO0tOOjY2gMwMxCgPlKm/vPw+l6DesLHILttAwzbMiwPYD0LIBdx2DcKqDHjPRlVZ44lu9g71nLNvL4GQyZP/gChx2so57/3MrCDTPDdaJV5GNPz0uZyuWB9XAaOUytMIZ1kaopD4m+bZbfgsNYLutwSAWBV8zDeJpud1wMaPrY4KCxGOIBQ/jjqD/cJH/abx/qD6AynRptkJ6ZsgICg+5jmSNHxD6TAD+FYwswT9Rvxp167i66LpinwjM+JpU0gNPUuQRZmV3pFiJNDWfZevg==',
+        'X-Gorgon': '8404c0744081845e8965794337bcdef89d108331b4cbd482d65a'
+    }
 
-    headers.update({"x-ig-set-www-claim":"0"})
-    headers.update({"x-csrftoken": rs3.cookies.get("csrftoken")})
-    if '{"user":true,"authenticated":false,"status":"ok"}' in rs3.text:
-    	re={'status':'Good','email':f'{email}','dev':'@Marko_Bots'}
-    	return re
-    elif '"{\"message\":\"Sorry, your password was incorrect. Please double-check your password.\",\"status\":\"fail\"}"' in rs3.text:
-    	re={'status':'Bad','email':f'{email}','dev':'@Marko_Bots'}
-    	return re
-    elif "html" in rs3.text:
-    	re={'status':'Good','email':f'{email}','dev':'@Marko_Bots'}
-    	return re
-    else:
-    	re={'status':'Error','email':f'{email}','dev':'@Marko_Bots'}
-    	return re
-#@app.get('/tiktok/M2/{email}')
-#async def ga(email):
-#    global cok,uuid
-#    import random
-#    email=email
-#    import requests
-#    em=email
-#    url ='https://api19-normal-c-alisg.tiktokv.com/passport/email/send_code/?passport-sdk-version=30990&manifest_version_code=330701&_rticket=1711308090883&app_language=en&app_type=normal&iid=7349188181060159237&channel=googleplay&device_type=G011A&language=en&host_abi=x86_64&locale=en&resolution=900*1600&openudid=4191dff1d6e4e016&update_version_code=330701&ac2=wifi&cdid=1f3cae72-702f-4eea-a47e-fba7c49fe70d&sys_region=US&os_api=28&timezone_name=Asia%2FShanghai&dpi=300&carrier_region=IQ&ac=wifi&device_id=7322401149382018566&os_version=9&timezone_offset=28800&version_code=330701&app_name=musically_go&ab_version=33.7.1&version_name=33.7.1&device_brand=google&op_region=IQ&ssmix=a&device_platform=android&build_number=33.7.1&region=US&aid=1340&ts=1711307676&okhttp_version=4.1.103.38-ul&use_store_region_cookie=1'
-#    hel ={
-#        'Host': 'api19-normal-c-alisg.tiktokv.com',
-#        'X-Ss-Stub': 'B678D13A61CFF656C7C5C4AC410ED08C',
-#        'X-Tt-Req-Timeout': '90000',
-#    
-#        'Passport-Sdk-Version': '30990',
-#        'X-Tt-Ultra-Lite': '1',
-#        'X-Vc-Bdturing-Sdk-Version': '2.3.2.i18n',
-#        'User-Agent': 'com.zhiliaoapp.musically.go/330701 (Linux; U; Android 9; en_US; G011A; Build/PI;tt-ok/3.12.13.2-alpha.68-quictest)',
-#        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-#        'Content-Length': '111',
-#        'Connection': 'Keep-Alive',
-#        'Cookie': 'store-idc=maliva; store-country-code=iq; store-country-code-src=did; install_id=7349188181060159237; ttreq=1$5b88a121224483f691167ed191ae7262463dcd97; odin_tt=1aae3f3d55b3661f89e63a25426a3f8129928fa6faf39bfdfacb5ee186c9b39bfc8f0d8742308a5d71b2d2c03fc71e30e6ed057f64066e96da204f848506ced2ce11249c5ccbcdced81b1228258e7b5c; msToken=q5s83ond0U83ofNGB2qkYjOZ37Mwd0-03K6xWYJ_9oMDy4NthHVHPINi6fd_RwjR2pZ3R1dthj52yYkTP_wxzvhQv5qIQytzcn6FgYTjbX6GxVa3T7-YtyQcqA==',
-#        'X-Ladon': 'WiQcSeHV096ORMvgUVUvpx8ETTRCwRytu5JTwCb2/I+0GlNv',
-#        'X-Khronos': '1711308102',
-#        'X-Argus': 'XB93C1jj7bSJ51Y4dFqSMrMSCO0tOOjY2gMwMxCgPlKm/vPw+l6DesLHILttAwzbMiwPYD0LIBdx2DcKqDHjPRlVZ44lu9g71nLNvL4GQyZP/gChx2so57/3MrCDTPDdaJV5GNPz0uZyuWB9XAaOUytMIZ1kaopD4m+bZbfgsNYLutwSAWBV8zDeJpud1wMaPrY4KCxGOIBQ/jjqD/cJH/abx/qD6AynRptkJ6ZsgICg+5jmSNHxD6TAD+FYwswT9Rvxp167i66LpinwjM+JpU0gNPUuQRZmV3pFiJNDWfZevg==',
-#        'X-Gorgon': '8404c0744081845e8965794337bcdef89d108331b4cbd482d65a'
-#    }
+    data ={
+        'rules_version':'v2',
+        'account_sdk_source':'app',
+        'type':'31',
+        'email':f'{em}',
+        'mix_mode':'1'
+    }
+ 
 
-#    data ={
-#        'rules_version':'v2',
-#        'account_sdk_source':'app',
-#        'type':'31',
-#        'email':f'{em}',
-#        'mix_mode':'1'
-#    }
-# 
-
-#    try:
-#    	r=get_proxs()
-#    	ru = requests.post(url,headers=hel,data=data).json()
-#    	print(ru)
-#    	st=(ru["message"])
-#    	#print(st)
-#    	if  'success' == st:
-#    		re={'status':'Good','email':f'{em}','dev':'@Marko_Bots'}
-#    		return re
-#    	else:
-#    		re={'status':'Bad','email':f'{em}','dev':'@Marko_Bots'}
-#    		return re
-#    except:
-#    		re={'status':'Erorr','email':f'{em}','dev':'@Marko_Bots'}
-#    		return re
+    try:
+    	r=get_proxs()
+    	ru = requests.post(url,headers=hel,data=data).json()
+    	print(ru)
+    	st=(ru["message"])
+    	#print(st)
+    	if  'success' == st:
+    		re={'status':'Good','email':f'{em}','dev':'@Marko_Bots'}
+    		return re
+    	else:
+    		re={'status':'Bad','email':f'{em}','dev':'@Marko_Bots'}
+    		return re
+    except:
+    		re={'status':'Erorr','email':f'{em}','dev':'@Marko_Bots'}
+    		return re
 #uvicorn.run(app,host='0.0.0.0',port=8080)
