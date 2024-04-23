@@ -45,6 +45,175 @@ def p():
 		pr=random.choice(prox)
 		return {'http':'http://'+pr,'http':'https://'+pr}
 p()
+import uuid
+import random
+import hashlib
+import httpx
+import time
+import httpx
+import random
+import uuid
+from time import *
+import string
+from urllib.parse import urlencode
+#from urllib.prase import urlencode
+import secrets
+#import binascii
+def generateRandomString(n):
+    # Generate a random string of length n
+    return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(n))
+def tokens():
+	
+	Block='4a40c892c95e48d772a51c3e512eface26cba248924e73e874956fd781bcd1f4'
+	Deviceid=str(uuid.uuid4())
+	FDeviceid=str(uuid.uuid4())
+	Androidid=f'android-{generateRandomString(8).encode().hex()}'
+	rnd = str(random.randint(150, 999))
+	Useragent="Instagram 291.1.0.34.111 Android (" + ["23/6.0", "24/7.0", "25/7.1.1", "26/8.0", "27/8.1", "28/9.0"][random.randint(0, 5)] + "; " + str(random.randint(100, 1300)) + "dpi; " + str(random.randint(200, 2000)) + "x" + str(random.randint(200, 2000)) + "; " + ["SAMSUNG", "HUAWEI", "LGE/lge", "HTC", "ASUS", "ZTE", "ONEPLUS", "XIAOMI", "OPPO","VIVO", "SONY", "REALME"][random.randint(0,11)] + "; SM-T" + rnd + "; SM-T" + rnd + "; qcom; en_US; 494078218)"
+	Waterid=str(uuid.uuid4())
+	qpl_join_id=str(uuid.uuid4())
+	Pigionid=f'UFS-{str(uuid.uuid4())}-0'
+	headers = {
+                'x-ig-app-locale': 'en_US',
+                'x-ig-device-locale': 'en_US',
+                'x-ig-mapped-locale': 'en_US',
+                'x-pigeon-session-id': Pigionid,
+                'X-Pigeon-Rawclienttime':str(round(time(), 3)),
+                'X-Ig-Bandwidth-Speed-Kbps': f'{random.randint(1000, 9999)}.000',
+                'X-Ig-Bandwidth-Totalbytes-B': f'{random.randint(10000000, 99999999)}',
+                'X-Ig-Bandwidth-Totaltime-Ms': f'{random.randint(10000, 99999)}',
+                'x-bloks-version-id': Block,
+                'x-ig-www-claim': '0',
+                'x-bloks-is-layout-rtl': 'false',
+                'x-ig-device-id': Deviceid,
+                'x-ig-family-device-id': FDeviceid,
+                'x-ig-android-id': Androidid,
+                'x-ig-timezone-offset': '-18000',
+                'x-fb-connection-type': 'WIFI',
+                'x-ig-connection-type': 'WIFI',
+                'x-ig-capabilities': '3brTv10=',
+                'x-ig-app-id': '567067343352427',
+                'priority': 'u=3',
+                'user-agent': Useragent,
+                'accept-language': 'en-US',
+                'ig-intended-user-id': '0',
+                'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'x-fb-http-engine': 'Liger',
+                'x-fb-client-ip': 'True',
+                'x-fb-server-cluster': 'True',
+            }
+
+	data = urlencode({
+                'normal_token_hash': '',
+                'device_id': Androidid,
+                'custom_device_id': Deviceid,
+                'fetch_reason': 'token_expired',
+            })
+
+
+	import requests
+	response = requests.post('https://b.i.instagram.com/api/v1/zr/dual_tokens/', headers=headers, data=data)
+	Mid=response.headers['ig-set-x-mid']
+	headers.update({'X-Mid': str(Mid), })
+	data = urlencode({
+                'params': '{"show_internal_settings":false,"offline_experiment_group":"caa_iteration_v3_perf_ig_4","device_id":"'+str(Androidid)+'","logged_out_user":"","qe_device_id":"'+str(Deviceid)+'","qpl_join_id":"'+str(qpl_join_id)+'","family_device_id":"'+str(FDeviceid)+'","waterfall_id":"'+str(Waterid)+'","account_list":[{"token":"","account_type":"google_oauth"},{"token":"","account_type":"google_oauth"}],"blocked_uid":[],"INTERNAL_INFRA_THEME":"default"}',
+                'bk_client_context': '{"bloks_version":"'+str(Block)+'","styles_id":"instagram"}',
+                'bloks_versioning_id': str(Block),
+            })
+	updict = {
+                "Content-Length": str(len(data)),
+                'Host': 'i.instagram.com',
+                'X-Mid': str(Mid),
+                'X-Ig-Family-Device-Id': str(FDeviceid),
+                'X-Pigeon-Rawclienttime': str(round(time(), 3)),
+
+            }
+	headers = {key: updict.get(key, headers[key]) for key in headers}
+	response = requests.post(
+                    'https://b.i.instagram.com/api/v1/bloks/apps/com.bloks.www.caa.login.home_template/',
+                    headers=headers,
+                    data=data,
+                )
+	#response = requests.post(
+#                'https://b.i.instagram.com/api/v1/bloks/apps/com.bloks.www.bloks.caa.login.process_client_data_and_redirect/',
+#                headers=headers,
+#                data=data,
+#            )
+	Elgn = response.text.split('"K":"email","!":"')[1].split('","":[{"㚱":{"9":"","2":""}}]')[0]
+	Plgn = response.text.split('"K":"password","!":"')[1].split('","":[{"㚱":{"9":"","2":""}}]')[0]
+	#print(response.text)
+	Insid = "83497738200454"
+	Mkrid = "36707139"
+	return Mid,Elgn,Plgn,Insid,Mkrid,headers
+tokens()
+@app.get('/ifsta/{email}')
+async def iink(email):
+	Mid,Elgn,Plgn,Insid,Mkrid,headers=tokens()
+#FDeviceid=str(uuid.uuid4())
+	Pigionid=f'UFS-{str(uuid.uuid4())}-0'
+	Block='4a40c892c95e48d772a51c3e512eface26cba248924e73e874956fd781bcd1f4'
+	Deviceid=str(uuid.uuid4())
+	FDeviceid=str(uuid.uuid4())
+	Androidid=f'android-{generateRandomString(8).encode().hex()}'
+	rnd = str(random.randint(150, 999))
+	Useragent="Instagram 291.1.0.34.111 Android (" + ["23/6.0", "24/7.0", "25/7.1.1", "26/8.0", "27/8.1", "28/9.0"][random.randint(0, 5)] + "; " + str(random.randint(100, 1300)) + "dpi; " + str(random.randint(200, 2000)) + "x" + str(random.randint(200, 2000)) + "; " + ["SAMSUNG", "HUAWEI", "LGE/lge", "HTC", "ASUS", "ZTE", "ONEPLUS", "XIAOMI", "OPPO","VIVO", "SONY", "REALME"][random.randint(0,11)] + "; SM-T" + rnd + "; SM-T" + rnd + "; qcom; en_US; 494078218)"
+	Waterid=str(uuid.uuid4())
+	qpl_join_id=str(uuid.uuid4())
+	from requests import get,post
+	import requests
+	url='https://i.instagram.com/api/v1/bloks/apps/com.bloks.www.bloks.caa.login.async.send_login_request/'
+	s=requests.Session()
+	from time import time
+	from hashlib import md5
+	csrftoken = md5(str(time()).encode()).hexdigest()
+	head={'x-mid':Mid,
+'x-csrftoken':csrftoken,
+'x-ig-bandwidth-speed-kbps':'-1.000',
+'x-ig-app-locale':'en_US',
+'priority':'u=3',
+'x-tigon-is-retry':'True',
+'ig-intended-user-id':'0',
+'x-ig-mapped-locale':'en_US',
+'x-ig-android-id':'android-d708b758349b401e',
+'x-fb-client-ip':'True',
+'accept-encoding':'gzip,deflate,br',
+'x-ig-www-claim':'0',
+'x-fb-server-cluster':'True',
+'x-fb-http-engine':'Liger',
+'x-ig-device-locale':'en_US',
+'x-bloks-version-id':'8ca96ca267e30c02cf90888d91eeff09627f0e3fd2bd9df472278c9a6c022cbb',
+'x-ig-device-id':'7762dd53-1482-4b95-9dd0-0e88a90a8b06',
+'x-ig-connection-type':'WIFI',
+'x-ig-timezone-offset':'28800',
+'content-length':'2024',
+'password-encryption-pub-key':'LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUEwNzNtTnZZMXJPNTE3ZUdpT2F4YwpUeElzYklhdm94TVhzZXo3MXFCM3FnSll0YkZ1YXBQR1FkR2FoZEMyMHVqNFBxYnZ4SUZsWUM0cHNnZVE3U2VGCmR5T1NhUGYzUVFtYlBWa09NWjR1Z0p4WFpaUGpaYVR5OGZPaGZFbUEwM3hDazlkSlNZZ0d0QVJZY3BwQ3dJZGQKL25GL2ppbUhhR3Y2REtYU01HUHhMNUxmTDhVVEpseWUydGw3MUg5Rk5mdEwrdjdRaW5VVHk4MS9vcnVzWEZiOAoxQnY5aGhvb21YeEEwWnBVbElVeklDTHE1enF6MmgwL1F5RGk2MlJ1KzJ0K2hyVUV6WGw5WUFHaHJSRkFEVG1ZCjhJRUxZYmFncFJFeHdTa0wySEJPdUVxcXlRV1gybEl1OUhaNVdxV0I4K2tKN0tsYjNMSWh2c21mMjAxV2dLV3QKa1FJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCg==',
+'x-ig-bandwidth-totaltime-ms':'0',
+'x-fb-connection-type':'WIFI',
+'x-www-claim':'0',
+'user-agent':Useragent,
+'x-ig-app-id':'567067343352427',
+'x-ig-family-device-id':'c630d575-13d6-4951-8a54-f55de54d70e4',
+'password-encryption-key-id':'204',
+'x-ig-capabilities':'3brTv10=',
+'content-type':'application/x-www-form-urlencoded;charset=UTF-8',
+'x-ig-bandwidth-totalbytes-b':'0',
+'x-pigeon-rawclienttime':'1712727625.935',
+'x-pigeon-session-id':'UFS-8131ce00-5cd3-49b0-beb8-a874f0fd0cd1-0',
+'#accept-language':'en-US',
+'host':'b.i.instagram.com',
+'x-bloks-is-layout-rtl':'false',}
+	user=email
+	pas='nagwgs'
+	data = {
+            'params': '{"client_input_params":{"contact_point":"' + user + '","password":"#PWD_INSTAGRAM:0:' + str(
+                round(
+                    time())) + ':' + pas + '","fb_ig_device_id":[],"event_flow":"login_manual","openid_tokens":{},"machine_id":"' + Mid + '","family_device_id":"' + FDeviceid + '","accounts_list":[],"try_num":1,"login_attempt_count":1,"device_id":"' + Androidid + 'a","auth_secure_device_id":"","device_emails":[""],"secure_family_device_id":"","event_step":"home_page"},"server_params":{"is_platform_login":0,"qe_device_id":"' + Deviceid + '","family_device_id":"' + FDeviceid + '","credential_type":"password","waterfall_id":"' + Waterid + '","username_text_input_id":"' + Elgn + '","password_text_input_id":"' + Plgn + '","offline_experiment_group":"caa_iteration_v3_perf_ig_4","INTERNAL__latency_qpl_instance_id":' + Insid + ',"INTERNAL_INFRA_THEME":"default","device_id":"' + Androidid + '","server_login_source":"login","login_source":"Login","ar_event_source":"login_home_page","INTERNAL__latency_qpl_marker_id":' + Mkrid + '}}',
+            'bk_client_context': '{"bloks_version":"' + Block + '","styles_id":"instagram"}',
+            'bloks_versioning_id': Block,
+        }
+	pl=post(url,headers=headers,data=data).text
+	if "The password you entered is incorrect. Please try again." in pl:return {'status':'Good','email':email,'Programer':'@Instagram_exe'}
+	else:return {'status':'Bad','email':email,'Devloper':'@Instagram_exe'}
 @app.get('/iiiinsta/{email}')
 async def insta(email):
 	url = "https://i.instagram.com/api/v1/users/lookup/"
